@@ -61,3 +61,22 @@ while True:
         # break termina instant o bucla
         break
 
+
+
+
+# ----------------
+# | FOR          |
+# ----------------
+
+# repeta instructiuni pe fiecare valoare
+# dintr-un set de valori
+
+mancare = ['biscuiti', 'inghetata', 'morcovi', 'biscuiti', 'paine cu pateu']
+
+for chestie in mancare:
+    print("mananc",chestie)
+
+
+for i in range(10):
+    print("numar:", i)
+
