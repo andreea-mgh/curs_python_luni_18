@@ -42,7 +42,7 @@ print(f"15 grade F sunt {FtoC(15)} grade C")
 
 # convertor de lungimi
 
-def convertor_lungime(nr, unit, target):
+def convertor_lungime(nr, unit, target='m'):
     """
     converteste lungimi
     mm, cm, m, km
@@ -67,5 +67,5 @@ def convertor_lungime(nr, unit, target):
 
 
 cm = 120
-m = convertor_lungime(120, 'cm', 'm')
+m = convertor_lungime(120, 'cm')
 print(f"5400 cm sunt {convertor_lungime(5400, 'cm', 'km')} km")
