@@ -24,9 +24,11 @@ def triunghi(latura):
 # ca sa facem un poligon, ne rotim cu
 # 360 impartit la numarul de laturi
 def poligon(nr, latura):
+    turtle.begin_fill()
     for i in range(nr): # 3 laturi
         turtle.forward(latura)
         turtle.left(360/nr) # 360/3
+    turtle.end_fill()
 
 
 for i in range(30): # repeta de 30 de ori
