@@ -8,6 +8,9 @@ turtle.speed(4)
 
 turtle.pendown()
 
+palette = ["pink", "orange", "purple"]
+
+
 def patrat(latura=50):
     for i in range(4): # 4 laturi
         turtle.forward(latura)
@@ -20,13 +23,18 @@ def triunghi(latura):
 
 # ca sa facem un poligon, ne rotim cu
 # 360 impartit la numarul de laturi
+def poligon(nr, latura):
+    for i in range(nr): # 3 laturi
+        turtle.forward(latura)
+        turtle.left(360/nr) # 360/3
 
 
 for i in range(30): # repeta de 30 de ori
+    turtle.color( palette[rand(0,len(palette)-1)] )
     turtle.penup()
     turtle.goto(rand(-150,150), rand(-100,100))
     turtle.pendown()
-    triunghi(rand(20,80))
+    poligon(rand(3,6),rand(20,80))
 
 
 
