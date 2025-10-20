@@ -1,3 +1,7 @@
+import os
+
+def clear():
+    os.system('cls')
 
 game_map = ['████████████████',
             '█    █$█  !  █ █',
@@ -27,6 +31,7 @@ player_x = 9
 while True:
     show_map()
     inst = input()
+    clear()
 
     old_x = player_x
     old_y = player_y
