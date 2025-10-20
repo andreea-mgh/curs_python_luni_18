@@ -54,6 +54,20 @@ def combat():
                 if HP <= 0:
                     print("you died :((")
                     return False
+        
+        elif action in ['run','r']:
+            chance = rand(1,10)
+
+            if chance < 4:
+                print("You escaped!!")
+                return True
+            else:
+                HP -= 1
+                print(f"You were attacked, HP {HP}")
+
+                if HP <= 0:
+                    print("you died :((")
+                    return False
 
 
 
