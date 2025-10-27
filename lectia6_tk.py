@@ -7,7 +7,7 @@ def chestie():
 def add_shape():
     x = rand(0,400)
     y = rand(0,400)
-    w = rand(20,50)
+    w = rand(50,150)
     h = rand(20,50)
     canvas.create_oval(x, y, x+w, y+h, fill="white", outline="")
 
