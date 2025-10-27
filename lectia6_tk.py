@@ -1,7 +1,16 @@
 import tkinter as tk
 
+def chestie():
+    print("ai apasat butonul")
+
+# facem un obiect fereastra, il numim "win"
 win = tk.Tk()
-button = tk.Button(win, text="click me")
+# facem un obiect buton, il numim "button"
+# il cream cu atributele:
+#    textul de pe buton "click me"
+#    comanda "chestie"
+button = tk.Button(win, text="click me", command=chestie)
+# afiseaza butonul pe fereastra
 button.pack()
 
 win.mainloop()
