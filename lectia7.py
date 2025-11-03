@@ -1,5 +1,6 @@
 import tkinter as tk
 from random import randint as rand
+from random import choice
 
 # Clasă: un set de atribute și acțiuni (= metode) care 
 #   reprezinta caracteristicile unui obiect.
@@ -11,29 +12,54 @@ class Fish:
     # care controleaza cum se creeaza obiectul
     def __init__(self):
         # facem atribute!
-        self.color = "orange"
+        self.color = choice(['coral', 'darkolivegreen1', 'darkseagreen1', 'firebrick1', 'darkorange'])
         self.size = rand(10,30)
         self.x = rand(20,380)
         self.y = rand(20,380)
-        self.vx = rand(-30, 30)
-        self.vy = rand(-10, 10)
+        self.vx = rand(-12, 12)
+        self.vy = rand(-3, 3)
     
     # facem metode!
     def draw(self, canvas):
-        canvas.create_rectangle(self.x - self.size, self.y - self.size/2,
-                                self.x + self.size, self.y + self.size/2,
-                                fill=self.color, outline="")
+        # canvas.create_rectangle(self.x - self.size, self.y - self.size/2,
+        #                         self.x + self.size, self.y + self.size/2,
+        #                         fill=self.color, outline="")
+        x = self.x
+        y = self.y
+        s = self.size
+
+        if self.vx < 0:
+            points = [x+s, y,
+                      x, y+s/2,
+                      x-s, y,
+                      x, y-s/2,
+                      # coada
+                      x+s, y,
+                      x+s*1.5, y-s/2,
+                      x+s*1.5, y+s/2]
+            canvas.create_polygon(points, fill=self.color)
+
+
     
     def move(self):
         self.x += self.vx
         self.y += self.vy
+
+        if self.x < 0 or self.x > 400:
+            self.vx = -self.vx
+
+        if self.y < 0 or self.y > 400:
+            self.vy = -self.vy
+        
+        
+
 
 
 
 
 
 fishtank = []
-for _ in range(10):
+for _ in range(30):
     fishtank.append(Fish())
 
 win = tk.Tk()
