@@ -38,6 +38,18 @@ class Fish:
                       x+s*1.5, y-s/2,
                       x+s*1.5, y+s/2]
             canvas.create_polygon(points, fill=self.color)
+        else:
+            # x-s devine x+s
+            # x+s devine x-s
+            points = [x-s, y,
+                      x, y+s/2,
+                      x+s, y,
+                      x, y-s/2,
+                      # coada
+                      x-s, y,
+                      x-s*1.5, y-s/2,
+                      x-s*1.5, y+s/2]
+            canvas.create_polygon(points, fill=self.color)
 
 
     
