@@ -2,6 +2,9 @@ import tkinter as tk
 from random import randint as rand
 from random import choice
 
+FPS = 50
+
+
 # Clasă: un set de atribute și acțiuni (= metode) care 
 #   reprezinta caracteristicile unui obiect.
 
@@ -16,8 +19,8 @@ class Fish:
         self.size = rand(10,30)
         self.x = rand(20,380)
         self.y = rand(20,380)
-        self.vx = rand(-12, 12)
-        self.vy = rand(-3, 3)
+        self.vx = rand(-50, 50)
+        self.vy = rand(-5, 5)
     
     # facem metode!
     def draw(self, canvas):
@@ -54,8 +57,8 @@ class Fish:
 
     
     def move(self):
-        self.x += self.vx
-        self.y += self.vy
+        self.x += self.vx / FPS
+        self.y += self.vy / FPS
 
         if self.x < 0 or self.x > 400:
             self.vx = -self.vx
@@ -86,7 +89,7 @@ def update():
         fish.draw(canvas)
     # after programeaza o functie sa ruleze dupa cateva milisecunde
     # => dupa ce se ruleaza functia update, ruleaza din nou update dupa 20 ms
-    win.after(20, update)
+    win.after(1000//FPS, update)
 
 update()
 win.mainloop()
