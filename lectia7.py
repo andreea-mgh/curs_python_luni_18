@@ -67,7 +67,9 @@ class Fish:
             self.vy = -self.vy
         
         
-
+def change_color():
+    selection = color.get()
+    canvas.config(background=selection)
 
 
 
@@ -82,8 +84,15 @@ win = tk.Tk()
 canvas = tk.Canvas(win, width=400, height=400, background='lightblue3')
 canvas.pack()
 
+color=tk.StringVar(value='lightblue3')
+
+tk.Radiobutton(win, text="Albastru inchis", variable=color, value='blue', command=change_color).pack(anchor='w')
+tk.Radiobutton(win, text="Albastru deschis", variable=color, value='cadetblue1', command=change_color).pack(anchor='w')
+tk.Radiobutton(win, text="Albastru deschis frumos", variable=color, value='lightblue3', command=change_color).pack(anchor='w')
+tk.Radiobutton(win, text="Albastru super inchis", variable=color, value='darkslateblue', command=change_color).pack(anchor='w')
+
 def update():
-    canvas.delete('all')
+    canvas.delete('all') 
     for fish in fishtank:
         fish.move()
         fish.draw(canvas)
