@@ -19,6 +19,9 @@ SEQUENCE = []
 CURRENT_SEQUENCE = []
 SCORE = 0
 
+BLINK_TIME = 200
+SEQ_TIME = 500
+
 def reset_game():
     global SEQUENCE, CURRENT_SEQUENCE, SCORE
     SCORE = 0
@@ -31,7 +34,7 @@ def reset_game():
 
 def show_sequence():
     for i in range(len(SEQUENCE)):
-        app.root.after(500*i, lambda c=SEQUENCE[i]: app.blink(c))
+        app.root.after(SEQ_TIME*i, lambda c=SEQUENCE[i]: app.blink(c))
 
 class Interfata:
     def __init__(self, root):
@@ -105,7 +108,7 @@ class Interfata:
             fill=CULORI_LIGHT[col],
             outline=CULORI[col]
         )
-        self.root.after(100, lambda:self.reset_light(col))
+        self.root.after(BLINK_TIME, lambda:self.reset_light(col))
     
     def reset_light(self, col):
         self.canvas.itemconfig(
@@ -131,8 +134,12 @@ class Interfata:
                 global SCORE
                 SCORE += 1
                 self.scor_label.config(text=f"SCOR: {SCORE}")
+                if SCORE%5 == 0:
+                    self.scor_label.config(text=f"BRAVOOO!!!")
+                    self.root.after(1000, self.update_score)
 
-
+    def update_score(self):
+        self.scor_label.config(text=f"SCOR: {SCORE}")
 
 
 win = tk.Tk()
