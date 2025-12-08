@@ -1,4 +1,5 @@
 import tkinter as tk
+from random import randint as rand
 
 CULORI = [
     "#22E861",
@@ -13,6 +14,24 @@ CULORI_LIGHT = [
     "#FFA2A2",
     "#9CE8FD"
 ]
+
+SEQUENCE = []
+CURRENT_SEQUENCE = []
+SCORE = 0
+
+def reset_game():
+    global SEQUENCE, CURRENT_SEQUENCE, SCORE
+    SCORE = 0
+    SEQUENCE = []
+    CURRENT_SEQUENCE = []
+    for i in range(4):
+        number = rand(0,3)
+        SEQUENCE.append(number)
+    show_sequence()
+
+def show_sequence():
+    for i in range(len(SEQUENCE)):
+        app.root.after(500*i, lambda c=SEQUENCE[i]: app.blink(c))
 
 class Interfata:
     def __init__(self, root):
@@ -65,7 +84,7 @@ class Interfata:
             self.canvas.tag_bind(
                 buton,
                 "<Button-1>",
-                lambda event, c=culoare: self.blink(c),
+                lambda event, c=culoare: self.click(c),
             )
 
         
@@ -75,7 +94,8 @@ class Interfata:
             text = "START",
             bg="#240F36",
             fg=self.TEXT_COLOR,
-            font=('Arial',18)
+            font=('Arial',18),
+            command=reset_game
         )
         self.start_button.pack()
 
@@ -93,6 +113,25 @@ class Interfata:
             fill=CULORI[col],
             outline="black"
         )
+        
+    def click(self, col):
+        self.blink(col)
+        if col != SEQUENCE[len(CURRENT_SEQUENCE)]:
+            self.blink(0)
+            self.blink(1)
+            self.blink(2)
+            self.blink(3)
+            self.root.after(500, reset_game)
+        else:
+            CURRENT_SEQUENCE.append(col)
+            if len(SEQUENCE) == len(CURRENT_SEQUENCE):
+                CURRENT_SEQUENCE.clear()
+                SEQUENCE.append(rand(0,3))
+                self.root.after(500, show_sequence)
+                global SCORE
+                SCORE += 1
+                self.scor_label.config(text=f"SCOR: {SCORE}")
+
 
 
 
