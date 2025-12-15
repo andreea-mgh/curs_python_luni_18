@@ -28,6 +28,8 @@ def generate_key(cipher):
         for i in range(len(ALFABET)):
             CHEIE[ALFABET[i]] = shuffled[i]
 
+generate_key("Atbash")
+
 # CRIPTARE
 def encrypt():
     text = input_text.get("1.0", tk.END).upper()
@@ -35,6 +37,18 @@ def encrypt():
     for litera in text:
         if litera in CHEIE:
             rezultat += CHEIE[litera]
+        else:
+            rezultat += litera
+    rezultat_label.config(text=rezultat)
+
+def decrypt():
+    text = input_text.get("1.0", tk.END).upper()
+    rezultat = ''
+    # inverseaza cheile si valorile din dictionar
+    CHEIE_INVERS = {v:k for k,v in CHEIE.items()} 
+    for litera in text:
+        if litera in CHEIE_INVERS:
+            rezultat += CHEIE_INVERS[litera]
         else:
             rezultat += litera
     rezultat_label.config(text=rezultat)
