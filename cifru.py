@@ -8,22 +8,29 @@ text = "IMI PLACE SA MA JOC MINECRAFT PE HYPIXEL PENTRU CA AU EVENIMENTE COOL DE
 ALFABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 CHEIE = {}
 
-# CAESAR CIPHER
-# for i in range(len(ALFABET)):
-#     CHEIE[ALFABET[i]] = ALFABET[(i+2) % len(ALFABET)]
+def generate_key(cipher):
+    global CHEIE
 
-# ATBASH CIPHER
-for i in range(len(ALFABET)):
-    CHEIE[ALFABET[i]] = ALFABET[-i-1]
+    if cipher == "Caesar":
+        # CAESAR CIPHER
+        for i in range(len(ALFABET)):
+            CHEIE[ALFABET[i]] = ALFABET[(i+2) % len(ALFABET)]
 
-# RANDOM SUBSTITUTION CIPHER
-shuffled = list(ALFABET[:]) 
-shuffle(shuffled)
-for i in range(len(ALFABET)):
-    CHEIE[ALFABET[i]] = shuffled[i]
+    elif cipher == "Atbash":
+        # ATBASH CIPHER
+        for i in range(len(ALFABET)):
+            CHEIE[ALFABET[i]] = ALFABET[-i-1]
+
+    elif cipher == "Substitution":
+        # RANDOM SUBSTITUTION CIPHER
+        shuffled = list(ALFABET[:]) 
+        shuffle(shuffled)
+        for i in range(len(ALFABET)):
+            CHEIE[ALFABET[i]] = shuffled[i]
 
 # CRIPTARE
 def encrypt():
+    text = input_text.get("1.0", tk.END).upper()
     rezultat = ''
     for litera in text:
         if litera in CHEIE:
@@ -33,6 +40,9 @@ def encrypt():
     rezultat_label.config(text=rezultat)
 
 win = tk.Tk()
+
+input_text = tk.Text(win, width=50, height=10)
+input_text.pack()
 
 buton = tk.Button(win, text="Encrypt!", command=encrypt)
 buton.pack()
