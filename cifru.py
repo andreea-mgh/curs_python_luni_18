@@ -55,11 +55,19 @@ def decrypt():
 
 win = tk.Tk()
 
+options = tk.StringVar(win)
+options.set("Atbash")
+option_menu = tk.OptionMenu(win, options, "Caesar", "Atbash", "Substitution",
+    command=lambda x: generate_key(x))
+option_menu.pack()
+
 input_text = tk.Text(win, width=50, height=10)
 input_text.pack()
 
 buton = tk.Button(win, text="Encrypt!", command=encrypt)
 buton.pack()
+buton2 = tk.Button(win, text="Decrypt!", command=decrypt)
+buton2.pack()
 
 rezultat_label = tk.Label(win, text='')
 rezultat_label.pack()
