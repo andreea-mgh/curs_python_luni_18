@@ -1,5 +1,5 @@
 
-from random import shuffle
+from random import shuffle, seed
 import tkinter as tk
 
 text = "IMI PLACE SA MA JOC MINECRAFT PE HYPIXEL PENTRU CA AU EVENIMENTE COOL DE SARBATORI"
@@ -8,13 +8,19 @@ text = "IMI PLACE SA MA JOC MINECRAFT PE HYPIXEL PENTRU CA AU EVENIMENTE COOL DE
 ALFABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 CHEIE = {}
 
+CAESAR_SHIFT = 12
+seed(121212)
+
+shuffled = list(ALFABET[:]) 
+shuffle(shuffled)
+
 def generate_key(cipher):
     global CHEIE
 
     if cipher == "Caesar":
         # CAESAR CIPHER
         for i in range(len(ALFABET)):
-            CHEIE[ALFABET[i]] = ALFABET[(i+2) % len(ALFABET)]
+            CHEIE[ALFABET[i]] = ALFABET[(i+CAESAR_SHIFT) % len(ALFABET)]
 
     elif cipher == "Atbash":
         # ATBASH CIPHER
@@ -23,8 +29,6 @@ def generate_key(cipher):
 
     elif cipher == "Substitution":
         # RANDOM SUBSTITUTION CIPHER
-        shuffled = list(ALFABET[:]) 
-        shuffle(shuffled)
         for i in range(len(ALFABET)):
             CHEIE[ALFABET[i]] = shuffled[i]
 
@@ -53,6 +57,12 @@ def decrypt():
             rezultat += litera
     rezultat_label.config(text=rezultat)
 
+def copy():
+    rezultat = rezultat_label.cget("text")
+    win.clipboard_clear()
+    win.clipboard_append(rezultat)
+    win.update()
+
 win = tk.Tk()
 
 options = tk.StringVar(win)
@@ -71,6 +81,9 @@ buton2.pack()
 
 rezultat_label = tk.Label(win, text='')
 rezultat_label.pack()
+
+buton_copy = tk.Button(win, text="COPY RESULT", command=copy)
+buton_copy.pack()
 
 win.mainloop()
 
