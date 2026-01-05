@@ -19,7 +19,7 @@ def buy_truck():
     if COOKIES >= 200:
         COOKIES -= 200
         COOKIE_GENERATORS["truck"] += 1
-        buton_autoclicker.config(text=f"Buy cookie truck for 200 cookies ({COOKIE_GENERATORS["truck"]})")
+        buton_truck.config(text=f"Buy cookie truck for 200 cookies ({COOKIE_GENERATORS["truck"]})")
         update()
 
 def update():
@@ -31,9 +31,18 @@ def click():
     COOKIES += 1
     update()
 
+def generate_cookies():
+    global COOKIES, COOKIE_GENERATORS
+    COOKIES += COOKIE_GENERATORS["auto"] * 1 + COOKIE_GENERATORS["truck"] * 20
+    update()
+    root.after(1000,generate_cookies)
+
+
 root = tk.Tk()
 root.geometry("400x400")
 root.title("Cookie Clicker!")
+
+root.after(1000, generate_cookies)
 
 label = tk.Label(root, text="0 cookies")
 label.pack()
@@ -49,5 +58,6 @@ buton_autoclicker.pack()
 
 buton_truck = tk.Button(text="Buy cookie truck for 200 cookies (0)", command=buy_truck)
 buton_truck.pack()
+
 
 root.mainloop()
