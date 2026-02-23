@@ -7,6 +7,8 @@ import requests
 import pytz
 import json
 
+from PIL import Image, ImageTk
+
 BG = "#89b4dd"
 FG = "#222A28"
 
@@ -49,6 +51,23 @@ class WeatherApp:
         if self.data['current']['condition']['icon']:
             url = "https:"+self.data['current']['condition']['icon']
             response = requests.get(url)
+
+            if response.status_code == 200:
+                with open("weather_icon.png", "wb") as f:
+                    f.write(response.content)
+                
+                pil_image = Image.open("weather_icon.png")
+                # resize aici
+                pil_image = pil_image.resize((250,250), Image.BILINEAR)
+                tk_image = ImageTk.PhotoImage(pil_image)
+
+                self.icon_label = tk.Label(self.root, image=tk_image, bg=BG)
+                self.icon_label.image = tk_image
+                self.icon_label.place(x=640,y=0)
+
+
+
+
             
 
         self.temp_label.config(text=f"{self.data['current']['temp_c']} \u00b0C")
