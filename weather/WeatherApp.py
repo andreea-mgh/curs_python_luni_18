@@ -41,7 +41,21 @@ class WeatherApp:
                                    font=('Arial',60),bg=BG,fg=FG)
         self.temp_label.place(x=20,y=200)
 
+        self.import_settings()
+
         self.root.mainloop()
+    
+    def import_settings(self):
+        try:
+            with open("settings.json", "r") as f:
+                self.settings = json.load(f)
+        except:
+            self.settings = {}
+        
+        if "location" in self.settings:
+            self.textfield.insert(0,self.settings["location"])
+            self.get_weather()
+
 
     def update_data(self):
         if not self.data:
@@ -64,17 +78,13 @@ class WeatherApp:
                 self.icon_label = tk.Label(self.root, image=tk_image, bg=BG)
                 self.icon_label.image = tk_image
                 self.icon_label.place(x=640,y=0)
-
-
-
-
             
 
         self.temp_label.config(text=f"{self.data['current']['temp_c']} \u00b0C")
 
     def save_data(self, location=None):
         if location:
-            self.settings['location'] = location
+            self.settings['location'] = self.textfield.get()
         
         with open("settings.json","w") as f:
             json.dump(self.settings,f,indent=2)
@@ -89,7 +99,7 @@ class WeatherApp:
             messagebox.showerror("Eroare", "Nu am găsit orașul.")
             return
 
-        #self.save_data(location=location)
+        self.save_data(location=location)
 
         api_url = f"http://api.weatherapi.com/v1/current.json?key={self.api_key}&q={location.latitude},{location.longitude}&aqi=no"
         response = requests.get(api_url)
