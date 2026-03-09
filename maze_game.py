@@ -45,7 +45,10 @@ class MazeGame:
         self.goal_x = self.cell_size * 19
         self.goal_y = self.cell_size * 9
 
-
+        self.wall_img = pygame.image.load("maze_assets/stone.png")
+        self.wall_img = pygame.transform.scale(self.wall_img, (self.cell_size, self.cell_size))
+        self.player_img = pygame.image.load("maze_assets/omulet.png")
+        self.player_img = pygame.transform.scale(self.player_img, (self.cell_size, self.cell_size))
 
         self.running = True
 
@@ -110,11 +113,14 @@ class MazeGame:
 
             # desenam peretii
             for cell in self.wall_blocks:
-                pygame.draw.rect(self.window, self.WALL_COLOR, cell)
+                #pygame.draw.rect(self.window, self.WALL_COLOR, cell)
+                self.window.blit(self.wall_img, cell.topleft)
 
             #desenam player
-            pygame.draw.rect(self.window, self.PLAYER_COLOR,
-                            (self.player_x, self.player_y, self.cell_size, self.cell_size))
+            # pygame.draw.rect(self.window, self.PLAYER_COLOR,
+            #                 (self.player_x, self.player_y, self.cell_size, self.cell_size))
+            self.window.blit(self.player_img, (self.player_x, self.player_y))
+
             # dezenam goal
             pygame.draw.rect(self.window, self.GOAL_COLOR,
                             (self.goal_x, self.goal_y, self.cell_size, self.cell_size))
