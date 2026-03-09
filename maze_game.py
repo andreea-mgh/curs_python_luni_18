@@ -61,15 +61,49 @@ class MazeGame:
                     wall_block = pygame.Rect(col_index*wall_size, row_index*wall_size,
                                              wall_size, wall_size)
                     self.wall_blocks.append(wall_block)
-        
+    
+    def test_collision(self, x, y):
+        player_rect = pygame.Rect(x, y, self.cell_size, self.cell_size)
+        for wall in self.wall_blocks:
+            if player_rect.colliderect(wall):
+                return True
+        return False
+
+    def test_win(self):
+        player_rect = pygame.Rect(self.player_x, self.player_y,
+                                  self.cell_size, self.cell_size)
+        goal_rect = pygame.Rect(self.goal_x, self.goal_y,
+                                  self.cell_size, self.cell_size)
+        return player_rect.colliderect(goal_rect)
+
     def run(self):
         while self.running:
             
             keys = pygame.key.get_pressed()
             speed = 0.4
+
+            new_x = self.player_x
+            new_y = self.player_y
+
             if keys[pygame.K_RIGHT]:  # sau K_d pentru WASD
                 new_x = self.player_x + speed
+                
+            if keys[pygame.K_LEFT]:  # sau K_a pentru WASD
+                new_x = self.player_x - speed
+                
+            if keys[pygame.K_UP]:  # sau K_w pentru WASD
+                new_y = self.player_y - speed
+                
+            if keys[pygame.K_DOWN]:  # sau K_s pentru WASD
+                new_y = self.player_y + speed
+                
+            if not self.test_collision(new_x, new_y):
                 self.player_x = new_x
+                self.player_y = new_y
+
+            if self.test_win():
+                print("you win!")
+                break # opreste ultima bucla in care se afla
 
 
             self.window.fill(self.BACKGROUND_COLOR)
